@@ -5,6 +5,8 @@
 version: 2
 jobs:
   build:
+    environment:
+      CC_TEST_REPORTER_ID: e639bc44a2f6d290db170e4020cce6e10359545bc24c4814303c2adfc8759539
     docker:
       # specify the version you desire here
       - image: circleci/node:10.15
@@ -26,7 +28,13 @@ jobs:
             # fallback to using the latest cache if no exact match is found
             - v1-dependencies-
 
-      - run: yarn install
+      - run: npm install
+      - run:
+        name: Setup CC test reporter
+        command: |
+          # download test reporter as a static binary
+          curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+          chmod +x ./cc-test-reporter
 
       - save_cache:
           paths:
@@ -34,4 +42,12 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
 
       # run tests!
-      - run: npm test
+      - run:
+        name: Run tests and reporter
+        command: |
+          # notify CC of pending test report using before-build
+          ./cc-test-reporter before-build
+          npm test
+
+          # upload test report to CC using after-build
+          ./cc-test-reporter after-build --coverag-input-type clover --exit-code $?
