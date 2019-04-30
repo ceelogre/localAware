@@ -21,7 +21,6 @@ export default {
       if(navigator.geolocation){
         this.geo = navigator.geolocation.getCurrentPosition( x => {
           this.geo = x.coords.latitude,
-          alert('Val')
         }, error => { alert('ERRR', error)})
       }
     },
