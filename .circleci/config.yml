@@ -49,4 +49,4 @@ jobs:
             # notify CC of pending test report using before-build and upload to CC
             ./cc-test-reporter before-build
             ./node_modules/nyc/bin/nyc.js --reporter=lcov npm test
-            ./cc-test-reporter after-build -t lcov -d --exit-code $?
+            ./cc-test-reporter after-build -p "/home/circleci/project/" -t lcov -d --exit-code $?
