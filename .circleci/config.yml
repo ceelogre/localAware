@@ -24,14 +24,14 @@ jobs:
       # Download and cache dependencies
       - restore_cache:
           keys:
-            - v1-dependencies-{{ checksum "package.json" }}
+            - v2-dependencies-{{ checksum "package.json" }}
             # fallback to using the latest cache if no exact match is found
             - v1-dependencies-
 
       - run: npm install
       - run:
         name: Setup CC test reporter
-        command: |
+        command:
           # download test reporter as a static binary
           curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
           chmod +x ./cc-test-reporter
@@ -44,10 +44,8 @@ jobs:
       # run tests!
       - run:
         name: Run tests and reporter
-        command: |
-          # notify CC of pending test report using before-build
+        command:
+          # notify CC of pending test report using before-build and upload to CC
           ./cc-test-reporter before-build
           npm test
-
-          # upload test report to CC using after-build
           ./cc-test-reporter after-build --coverag-input-type clover --exit-code $?
