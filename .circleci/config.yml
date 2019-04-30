@@ -31,7 +31,7 @@ jobs:
       - run: npm install
       - run:
           name: Setup CC test reporter
-          command:
+          command: |
             # download test reporter as a static binary
             curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
 
@@ -45,7 +45,7 @@ jobs:
       # run tests!
       - run:
           name: Run tests and reporter
-          command:
+          command: |
             # notify CC of pending test report using before-build and upload to CC
             ./cc-test-reporter before-build
             npm test
