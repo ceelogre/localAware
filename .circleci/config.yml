@@ -49,4 +49,4 @@ jobs:
             # notify CC of pending test report using before-build and upload to CC
             ./cc-test-reporter before-build
             npm test
-            ./cc-test-reporter after-build -d --exit-code $?
+            ./cc-test-reporter after-build -d 
