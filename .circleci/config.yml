@@ -48,5 +48,5 @@ jobs:
           command: |
             # notify CC of pending test report using before-build and upload to CC
             ./cc-test-reporter before-build
-            nyc --reporter=lcov npm test
+            ./node_modules/nyc/bin/nyc.js --reporter=lcov npm test
             ./cc-test-reporter after-build -t lcov -d --exit-code $?
