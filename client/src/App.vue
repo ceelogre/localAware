@@ -1,31 +1,40 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
+    <section id="nav">
+      <router-link class="button" to="/">Home</router-link> |
+      <router-link class="button" to="/about">About</router-link>
+      <div class="columns">
+  <div class="column">1</div>
+  <div class="column">2</div>
+  <div class="column">3</div>
+  <div class="column">4</div>
+  <div class="column">5</div>
+</div>
+    </section>
     <router-view/>
   </div>
 </template>
 
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-#nav {
-  padding: 30px;
-}
+<style lang="sass">
+@import '../node_modules/bulma/sass/utilities/initial-variables'
+@import '../node_modules/bulma/sass/utilities/functions'
+#app 
+  font-family: 'Avenir', Helvetica, Arial, sans-serif
+  -webkit-font-smoothing: antialiased
+  -moz-osx-font-smoothing: grayscale
+  text-align: center
+  $color: $dark
 
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
+#nav 
+  padding: 30px
 
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
+
+#nav a 
+  font-weight: bold
+  color: #2c3e50
+
+
+#nav a.router-link-exact-active 
+  color: #42b983
+
 </style>

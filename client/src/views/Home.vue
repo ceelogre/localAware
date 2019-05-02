@@ -1,8 +1,10 @@
 <template>
-  <div class="hello">
-    <button v-on:click="getLocation">Start loc</button>
-    <h2> {{ geo}} </h2>
-  </div>
+  <section class="section">
+    <div class="container">
+      <h1 class="title">Dista</h1>
+      <p class="subtitle">Join <strong>only</strong> if you're here</p>
+    </div>
+  </section>
 </template>
 
 <script>
@@ -22,7 +24,7 @@ export default {
         this.geo = navigator.geolocation.getCurrentPosition( x => {
           this.geo = x.coords.latitude
           console.log(process.env.NODE_ENV, ' s')
-        }, error => { alert('ERRR', error)})
+        }, error => { alert('Looks like location services isn\'t enabled on your device.', error)})
       }
     },
     askGeo(){
