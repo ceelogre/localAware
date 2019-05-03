@@ -23,7 +23,7 @@
   -webkit-font-smoothing: antialiased
   -moz-osx-font-smoothing: grayscale
   text-align: center
-  $color: $dark
+  color: white
 
 #nav 
   padding: 30px
