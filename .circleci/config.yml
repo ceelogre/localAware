@@ -48,5 +48,5 @@ jobs:
           command: |
             # notify CC of pending test report using before-build and upload to CC
             ./cc-test-reporter before-build
-            npm test -- --coverage
-            ./cc-test-reporter after-build -t lcov -d --exit-code $?
+            npm test
+            ./cc-test-reporter after-build -d --exit-code $?
