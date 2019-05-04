@@ -1,5 +1,5 @@
 # Dista
-[![CircleCI](https://circleci.com/gh/ceelogre/localAware.svg?style=svg)](https://circleci.com/gh/ceelogre/localAware)
+[![Build Status CircleCI](https://circleci.com/gh/ceelogre/localAware.svg?style=svg)](https://circleci.com/gh/ceelogre/localAware)
 ## Project setup
 ```
 npm install
