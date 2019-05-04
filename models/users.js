@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
+const bcrptjs = require('bcryptjs')
 
 const possiblePrivileges = {
   BASIC: 'attendee',
@@ -27,6 +28,10 @@ userSchema.methods = {
   },
   isPrivilegeValid: function () {
     return Object.values(possiblePrivileges).includes(this.privilege)
+  },
+  maskKey: async function () {
+    let salt = await bcrptjs.genSalt(10)
+    return bcrptjs.hash(this.key, salt)
   }
 }
 

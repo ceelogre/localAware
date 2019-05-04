@@ -7,6 +7,7 @@
     "test": "nyc mocha tests/*"
   },
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.9",
     "express": "~4.16.0",
@@ -15,6 +16,7 @@
   },
   "devDependencies": {
     "chai": "^4.2.0",
+    "chai-as-promised": "^7.1.1",
     "mocha": "^6.1.4",
     "mongodb-memory-server": "^5.1.0",
     "nyc": "^14.0.0"
