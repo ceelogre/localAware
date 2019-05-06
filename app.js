@@ -31,9 +31,9 @@ if (process.env.NODE_ENV === 'test') {
     })
 } else if (process.env.NODE_ENV === 'production') {
   app.get(/.*/, (req, res) => res.sendFile(path.join(__dirname, '/public/index.html')))
-  mongoose.connect('mongodb+srv://dista:rewqilike3@dista-wvmln.mongodb.net/test?retryWrites=true', function (err) {
+  mongoose.connect('mongodb+srv://dista:rewqilike3@dista-wvmln.mongodb.net/test?retryWrites=true', { useNewUrlParser: true }, function (err) {
     // TODO handle this error in production
-    console.log('Error connecting to production db.', err)
+    if (err) console.log('Error connecting to production db.', err)
   })
 } else {
   mongoose.connect('mongodb://localhost:27017/dista', { useNewUrlParser: true }, function (error) {
