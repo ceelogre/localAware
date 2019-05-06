@@ -6,7 +6,6 @@ const mongoose = require('mongoose')
 require('./configs/config')
 
 const usersRouter = require('./routes/users')
-const spinTestDb = require('./utils/testDb')
 
 const app = express()
 
@@ -23,6 +22,7 @@ if (process.argv[2]) process.env.NODE_ENV = process.argv[2]
 
 // Create an in memory db
 if (process.env.NODE_ENV === 'test') {
+  const spinTestDb = require('./utils/testDb')
   spinTestDb().then(
     db => {
       mongoose.connect(db.location, { useNewUrlParser: true }, function (error) {
