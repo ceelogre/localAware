@@ -7,17 +7,18 @@ exports.createUser = async function (req, res) {
     privilege: req.body.privilege
   })
   let doc = await newUserDocument.save()
-  res.json(doc)
+  res.status(201).json(doc)
 }
 exports.getUsers = async function (req, res) {
-  let users = await UserModel.findall()
-  res.json(users)
+  let users = await UserModel.find()
+  res.status(201).json(users)
 }
 exports.getUser = function () {
 
 }
 exports.updateUser = async function () {
-  let doc.name = 'foo'
+  let doc
+  doc.name = 'foo'
 
   // Mongoose sends a `updateOne({ _id: doc._id }, { $set: { name: 'foo' } })`
   // to MongoDB.

@@ -5,7 +5,6 @@ const logger = require('morgan')
 const mongoose = require('mongoose')
 require('./configs/config')
 
-const indexRouter = require('./routes/index')
 const usersRouter = require('./routes/users')
 const spinTestDb = require('./utils/testDb')
 
@@ -17,8 +16,7 @@ app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser())
 app.use(express.static(path.join(__dirname, 'public')))
 
-app.use('/', indexRouter)
-app.use('/users', usersRouter)
+app.use('/api/v1/users', usersRouter)
 
 // Set the env
 if (process.argv[2]) process.env.NODE_ENV = process.argv[2]
@@ -33,6 +31,10 @@ if (process.env.NODE_ENV === 'test') {
     })
 } else if (process.env.NODE_ENV === 'production') {
   app.get(/.*/, (req, res) => res.sendFile(path.join(__dirname, '/public/index.html')))
+  mongoose.connect('mongodb+srv://dista:rewqilike3@dista-wvmln.mongodb.net/test?retryWrites=true', function (err) {
+    // TODO handle this error in production
+    console.log('Error connecting to production db.', err)
+  })
 } else {
   mongoose.connect('mongodb://localhost:27017/dista', { useNewUrlParser: true }, function (error) {
     if (error) console.log('Error starting db ', error)

@@ -37,7 +37,7 @@ userSchema.methods = {
 
 // Statics for the model instance. Can be used for queries
 userSchema.statics = {
-  findAdmins: function (type, cb) {
+  findAdmins: async function (type, cb) {
     return this.find({ privilege: this.type })
   }
 }

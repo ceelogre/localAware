@@ -17,12 +17,8 @@ describe('Users suite', function () {
   it('should accept this object\'s privilege', function () {
     assert(mockUser.isPrivilegeValid(), true, ' Unallowed privilege')
   })
-  it('should return all admins', function () {
-    UserModel.findAdmins(mockUser.privilege, function (err, admins) {
-      should.not.exist(err)
-    })
-  })
-  it('should return a hash ', function () {
+  
+  it('should return a hash string with length 60', function () {
     return mockUser.maskKey().should.eventually.have.length(60)
   })
 })
