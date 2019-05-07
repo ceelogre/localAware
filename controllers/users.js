@@ -1,7 +1,6 @@
 const UserModel = require('../models/users')
 
 exports.createUser = async function (req, res) {
-  console.log(req.body, ' Deept')
   let newUserDocument = new UserModel({
     handle: req.body.handle,
     key: req.body.key,
