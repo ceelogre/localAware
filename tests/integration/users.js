@@ -10,13 +10,13 @@ const server = 'http://localhost:2120/api/v1'
 chai.use(chaiHttp)
 chai.use(chaiAsPromised)
 
-const mockUser = new UserModel({
+const mockUser = {
   handle: 'Tali',
   key: 'ilat',
   privilege: 'admin'
-})
+}
 
-request.post({ url: server + '/users', formData: mockUser }, (err, res, users) => {
+request.post({ url: server + '/users', form: mockUser }, (err, res, users) => {
   if (err) throw (err)
   console.log('Naaaaah', users)
 })
