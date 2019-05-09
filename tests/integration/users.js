@@ -15,12 +15,15 @@ const mockUser = {
   key: 'ilat',
   privilege: 'admin'
 }
-
+const chainsmokers = {
+  handle: '@chain',
+  key: 'srekoms'
+}
 before (function () {
   return chai.request(server)
     .post('/users')
     .type('form')
-    .send(mockUser)
+    .send(mockUser, chainsmokers)
 })
 
 describe(' User integration suite', function () {
@@ -29,6 +32,5 @@ describe(' User integration suite', function () {
     return chai.request(server)
       .get('/users')
       .should.eventually.have.a.property('body').that.is.an('array')
-      .that.has.all.keys('0')
   })
 })
