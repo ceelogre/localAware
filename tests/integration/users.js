@@ -1,9 +1,11 @@
+require('../../app')
 const assert = require('assert')
 const chai = require('chai')
 const should = chai.should()
 const chaiAsPromised = require('chai-as-promised')
 const UserModel = require('../../models/users')
 const chaiHttp = require('chai-http')
+
 
 const server = 'http://localhost:2120/api/v1'
 
