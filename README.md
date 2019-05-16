@@ -1,34 +1,21 @@
 # Dista
-[![Build Status CircleCI](https://circleci.com/gh/ceelogre/localAware.svg?style=svg)](https://circleci.com/gh/ceelogre/localAware) <a href="https://codeclimate.com/github/ceelogre/localAware/maintainability"><img src="https://api.codeclimate.com/v1/badges/29d39eae42dcbcdf630d/maintainability" /></a> <a href="https://codeclimate.com/github/ceelogre/localAware/test_coverage"><img src="https://api.codeclimate.com/v1/badges/29d39eae42dcbcdf630d/test_coverage" /></a>
+[![Build Status CircleCI](https://circleci.com/gh/ceelogre/localAware.svg?style=svg)](https://circleci.com/gh/ceelogre/localAware) [![Test Coverage](https://api.codeclimate.com/v1/badges/29d39eae42dcbcdf630d/test_coverage)](https://codeclimate.com/github/ceelogre/localAware/test_coverage) [![Maintainability](https://api.codeclimate.com/v1/badges/29d39eae42dcbcdf630d/maintainability)](https://codeclimate.com/github/ceelogre/localAware/maintainability)
 ## Project setup
 ```
 npm install
 ```
+### Compile and minify for production
+```
+cd client && npm run build
+```
+### If you want to try dev mode
+```
+cd client && npm install
+```
 
-### Compiles and hot-reloads for development
+### Then compile and hot-reload for development
 ```
 npm run serve
 ```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Run your tests
-```
-npm run test
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Run your unit tests
-```
-npm run test:unit
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+### Browse over to `localhost:2120`
+## **Voila!**
