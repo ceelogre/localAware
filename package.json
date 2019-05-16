@@ -31,7 +31,9 @@
     "exit": "true"
   },
   "nyc": {
-    "reporter": ["lcov", "text"]
+    "reporter": ["lcov", "text"],
+    "all": "true",
+    "exclude": ["client","public", "coverage"]
   },
   "standard": {
     "ignore": [
