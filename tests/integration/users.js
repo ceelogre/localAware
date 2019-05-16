@@ -6,7 +6,6 @@ const chaiAsPromised = require('chai-as-promised')
 const UserModel = require('../../models/users')
 const chaiHttp = require('chai-http')
 
-
 chai.use(chaiHttp)
 chai.use(chaiAsPromised)
 
@@ -20,13 +19,22 @@ const chainsmokers = {
   key: 'srekoms'
 }
 
-
 before (function () {
-  return chai.request(app)
-    .post('/api/v1/users')
-    .type('form')
-    .send(mockUser)
-    .should.eventually.have.a.property('body')
+  const requester = chai.request(app).keepOpen()
+
+  Promise.all([
+    requester.post('/api/v1/users')
+      .type('form')
+      .send(mockUser),
+    requester.post('/api/v1/users')
+      .type('form')
+      .send(chainsmokers)
+  ])
+    .then(
+      () => {
+        requester.close()
+      }
+    )
 })
 
 describe(' User integration suite', function () {
@@ -35,6 +43,6 @@ describe(' User integration suite', function () {
     return chai.request(app)
       .get('/api/v1/users')
       .should.eventually.have.a.property('body').that.is.an('array')
-      .that.has.lengthOf(1)
+      .that.has.lengthOf(2)
   })
 })
