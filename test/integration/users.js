@@ -1,4 +1,4 @@
-require('../../app')
+const app = require('../../app')
 const assert = require('assert')
 const chai = require('chai')
 const should = chai.should()
@@ -6,8 +6,6 @@ const chaiAsPromised = require('chai-as-promised')
 const UserModel = require('../../models/users')
 const chaiHttp = require('chai-http')
 
-
-const server = 'http://localhost:2120/api/v1'
 
 chai.use(chaiHttp)
 chai.use(chaiAsPromised)
@@ -21,18 +19,22 @@ const chainsmokers = {
   handle: '@chain',
   key: 'srekoms'
 }
+
+
 before (function () {
-  return chai.request(server)
-    .post('/users')
+  return chai.request(app)
+    .post('/api/v1/users')
     .type('form')
-    .send(mockUser, chainsmokers)
+    .send(mockUser)
+    .should.eventually.have.a.property('body')
 })
 
 describe(' User integration suite', function () {
 
   it('should return a user with name Tali', function () {
-    return chai.request(server)
-      .get('/users')
+    return chai.request(app)
+      .get('/api/v1/users')
       .should.eventually.have.a.property('body').that.is.an('array')
+      .that.has.lengthOf(1)
   })
 })

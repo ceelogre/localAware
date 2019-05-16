@@ -3,7 +3,6 @@ const path = require('path')
 const cookieParser = require('cookie-parser')
 const logger = require('morgan')
 const mongoose = require('mongoose')
-require('./configs/config')
 
 const usersRouter = require('./routes/users')
 
@@ -21,7 +20,7 @@ app.use('/api/v1/users', usersRouter)
 if (process.argv[2]) process.env.NODE_ENV = process.argv[2]
 
 // Create an in memory db
-if (process.env.NODE_ENV === 'test') {
+if (process.env.NODE_ENV === 'test' || global.envs) {
   const spinTestDb = require('./utils/testDb')
   spinTestDb().then(
     db => {

@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "test": "nyc mocha tests/*"
+    "test": "nyc mocha"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
@@ -22,6 +22,13 @@
     "mocha": "^6.1.4",
     "mongodb-memory-server": "^5.1.0",
     "nyc": "^14.1.0"
+  },
+  "mocha": {
+    "reporter": "spec",
+    "full-trace": "true",
+    "recursive": "true",
+    "spec": "test",
+    "exit": "true"
   },
   "standard": {
     "ignore": [
