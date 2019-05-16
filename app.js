@@ -20,7 +20,7 @@ app.use('/api/v1/users', usersRouter)
 if (process.argv[2]) process.env.NODE_ENV = process.argv[2]
 
 // Create an in memory db
-if (process.env.NODE_ENV === 'test' || global.envs) {
+if (process.env.NODE_ENV === 'test' || process.env.NODE_ENV === 'tests') {
   const spinTestDb = require('./utils/testDb')
   spinTestDb().then(
     db => {

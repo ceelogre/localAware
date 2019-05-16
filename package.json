@@ -26,8 +26,8 @@
   "mocha": {
     "reporter": "spec",
     "full-trace": "true",
+    "spec": "tests",
     "recursive": "true",
-    "spec": "test",
     "exit": "true"
   },
   "nyc": {

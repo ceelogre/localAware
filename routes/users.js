@@ -8,4 +8,7 @@ router.post('/', userCRUD.createUser)
 // Get users
 router.get('/', userCRUD.getUsers)
 
+// Update a user
+router.put('/:id', userCRUD.updateUser)
+
 module.exports = router

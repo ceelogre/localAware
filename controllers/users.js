@@ -10,7 +10,7 @@ exports.createUser = async function (req, res) {
   res.status(201).json(doc)
 }
 exports.getUsers = async function (req, res) {
-  let users = await UserModel.find().select('-_id handle key privilege')
+  let users = await UserModel.find().select('')
   res.status(201).json(users)
 }
 exports.getUser = function () {
