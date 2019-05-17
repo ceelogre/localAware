@@ -24,7 +24,8 @@ if (process.env.NODE_ENV === 'test' || process.env.NODE_ENV === 'tests') {
   const spinTestDb = require('./utils/testDb')
   spinTestDb().then(
     db => {
-      mongoose.connect(db.location, { useNewUrlParser: true }, function (error) {
+      const options = { useNewUrlParser: true, useCreateIndex: true }
+      mongoose.connect(db.location, options, function (error) {
         if (error) console.log('Error starting db ', error)
       })
     })

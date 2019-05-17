@@ -6,7 +6,12 @@ exports.createUser = async function (req, res) {
     key: req.body.key,
     privilege: req.body.privilege
   })
-  let doc = await newUserDocument.save()
+  let doc
+  try {
+    doc = await newUserDocument.save()
+  } catch (err) {
+    if (err.name === 'MongoError' && err.code === 11000) res.status(406).json({ 'Error': 'Handle already exists' })
+  }
   res.status(201).json(doc)
 }
 exports.getUsers = async function (req, res) {

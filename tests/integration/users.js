@@ -38,8 +38,7 @@ before (function () {
 })
 
 describe(' User integration suite', function () {
-
-  it('should return a user with name Tali', function () {
+  it('should return all users', function () {
     return chai.request(app)
       .get('/api/v1/users')
       .should.eventually.have.a.property('body').that.is.an('array')
