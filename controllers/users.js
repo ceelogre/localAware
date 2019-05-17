@@ -26,6 +26,8 @@ exports.getUser = async function (req, res) {
 exports.updateUser = async function (req, res) {
   let doc = await UserModel.findOne({ '_id': req.params.id })
 
+  if (!doc) return res.status(404).json({ 'Error': 'User with the given id not found' })
+
   // Mongoose sends a `updateOne({ _id: doc._id }, { $set: { handle: 'new name' } })`
   // to MongoDB.
   if (req.body.handle) doc.handle = req.body.handle

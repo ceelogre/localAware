@@ -1,9 +1,6 @@
 const app = require('../../app')
-const assert = require('assert')
 const chai = require('chai')
-const should = chai.should()
 const chaiAsPromised = require('chai-as-promised')
-const UserModel = require('../../models/users')
 const chaiHttp = require('chai-http')
 
 chai.use(chaiHttp)
@@ -41,7 +38,7 @@ before (function () {
     )
 })
 
-describe(' Create User suite', function () {
+describe(' Create/Get user User suite', function () {
   it('should not create a user with an existing handle', function () {
     return chai.request(app)
       .post('/api/v1/users')
@@ -75,6 +72,14 @@ describe(' Create User suite', function () {
       .put('/api/v1/users/' + firstUser._id)
       .send(updatedUser)
       .should.eventually.be.a('object').that.has.property('body')
+      // Check value too
       .that.has.any.keys({ 'handle': '@smokers' })
+  })
+  it('should not update a non-existing user', function () {
+    return chai.request(app)
+      .put('/api/v1/users/' + '5cdf00000040000000000008')
+      .send(updatedUser)
+      .should.eventually.be.a('object')
+      .that.has.deep.property('body', { 'Error': 'User with the given id not found' })
   })
 })
