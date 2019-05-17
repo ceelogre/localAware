@@ -38,6 +38,12 @@ before (function () {
 })
 
 describe(' User integration suite', function () {
+  it('should not create an existing user', function () {
+    return chai.request(app)
+      .post('/api/v1/users')
+      .send(chainsmokers)
+      .should.eventually.be.an('object').that.has.deep.property('body', { 'Error': 'Handle already exists' })
+  }, 'Error messages don\'t match')
   it('should return all users', function () {
     return chai.request(app)
       .get('/api/v1/users')
