@@ -37,7 +37,7 @@ before (function () {
     )
 })
 
-describe(' User integration suite', function () {
+describe(' Create User suite', function () {
   it('should not create an existing user', function () {
     return chai.request(app)
       .post('/api/v1/users')
@@ -49,5 +49,21 @@ describe(' User integration suite', function () {
       .get('/api/v1/users')
       .should.eventually.have.a.property('body').that.is.an('array')
       .that.has.lengthOf(2)
+  })
+  let firstUser
+  before( function () {
+    let superagentRequest = chai.request(app)
+      .get('/api/v1/users')
+    superagentRequest.end((err, res) => {
+      if (err) return err
+      firstUser = (res.body[0])
+    })
+    return null
+  })
+  it('should return a single user', function () {
+    return chai.request(app)
+      .get('/api/v1/users/' + firstUser._id)
+      .should.eventually.have.property('body')
+      .that.is.an('array').that.has.lengthOf(1)
   })
 })

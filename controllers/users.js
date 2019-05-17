@@ -18,8 +18,10 @@ exports.getUsers = async function (req, res) {
   let users = await UserModel.find().select('')
   res.status(201).json(users)
 }
-exports.getUser = function () {
-
+exports.getUser = async function (req, res) {
+  let user = await UserModel.find({ '_id': req.params.id })
+  if (user.length === 0) res.status(201).json('User not found')
+  else res.status(201).json(user)
 }
 exports.updateUser = async function () {
   let doc

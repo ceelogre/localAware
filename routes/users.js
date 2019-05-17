@@ -7,6 +7,7 @@ router.post('/', userCRUD.createUser)
 
 // Get users
 router.get('/', userCRUD.getUsers)
+router.get('/:id', userCRUD.getUser)
 
 // Update a user
 router.put('/:id', userCRUD.updateUser)
