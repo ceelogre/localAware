@@ -40,7 +40,8 @@ exports.updateUser = async function (req, res) {
 }
 exports.deleteUser = async function (req, res) {
   try {
-    await UserModel.deleteOne({ _id: req.params.id })
+    let deleteQuery = await UserModel.deleteOne({ _id: req.params.id })
+    if (deleteQuery.deletedCount === 0) return res.status(201).json({ 'Failed': 'User not found' })
     res.status(201).json({ 'Success': 'User successfully deleted' })
   } catch (err) {
     res.status(504).json({ 'Error': 'Operation not successful. Try again' })
