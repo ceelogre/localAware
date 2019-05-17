@@ -19,6 +19,10 @@ const chainsmokers = {
   key: 'srekoms'
 }
 
+const updatedUser = {
+  handle: '@smokers'
+}
+
 before (function () {
   const requester = chai.request(app).keepOpen()
 
@@ -38,7 +42,7 @@ before (function () {
 })
 
 describe(' Create User suite', function () {
-  it('should not create an existing user', function () {
+  it('should not create a user with an existing handle', function () {
     return chai.request(app)
       .post('/api/v1/users')
       .send(chainsmokers)
@@ -60,10 +64,17 @@ describe(' Create User suite', function () {
     })
     return null
   })
-  it('should return a single user', function () {
+  it('should return a single user with the given id', function () {
     return chai.request(app)
       .get('/api/v1/users/' + firstUser._id)
       .should.eventually.have.property('body')
       .that.is.an('array').that.has.lengthOf(1)
+  })
+  it('should update a user details given their id', function () {
+    return chai.request(app)
+      .put('/api/v1/users/' + firstUser._id)
+      .send(updatedUser)
+      .should.eventually.be.a('object').that.has.property('body')
+      .that.has.any.keys({ 'handle': '@smokers' })
   })
 })

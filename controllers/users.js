@@ -23,13 +23,18 @@ exports.getUser = async function (req, res) {
   if (user.length === 0) res.status(201).json('User not found')
   else res.status(201).json(user)
 }
-exports.updateUser = async function () {
-  let doc
-  doc.name = 'foo'
+exports.updateUser = async function (req, res) {
+  let doc = await UserModel.findOne({ '_id': req.params.id })
 
-  // Mongoose sends a `updateOne({ _id: doc._id }, { $set: { name: 'foo' } })`
+  // Mongoose sends a `updateOne({ _id: doc._id }, { $set: { handle: 'new name' } })`
   // to MongoDB.
-  await doc.save()
+  if (req.body.handle) doc.handle = req.body.handle
+  try {
+    await doc.save()
+  } catch (err) {
+    console.error(err, ' Update failed')
+  }
+  res.status(201).json(doc)
 }
 exports.deleteUsers = function () {
 
