@@ -12,4 +12,7 @@ router.get('/:id', userCRUD.getUser)
 // Update a user
 router.put('/:id', userCRUD.updateUser)
 
+// Delete user
+router.delete('/:id', userCRUD.deleteUser)
+
 module.exports = router

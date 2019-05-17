@@ -18,29 +18,38 @@ exports.getUsers = async function (req, res) {
   let users = await UserModel.find().select('')
   res.status(201).json(users)
 }
+
 exports.getUser = async function (req, res) {
-  let user = await UserModel.find({ '_id': req.params.id })
-  if (user.length === 0) res.status(201).json('User not found')
-  else res.status(201).json(user)
+  let doc = await retrieveUser(req, res)
+  if (doc instanceof UserModel) res.status(201).json(doc)
 }
 exports.updateUser = async function (req, res) {
+  let doc = await retrieveUser(req, res)
+
+  if (doc instanceof UserModel) {
+    // Mongoose sends a `updateOne({ _id: doc._id }, { $set: { handle: 'new name' } })`
+    // to MongoDB.
+    if (req.body.handle) doc.handle = req.body.handle
+    try {
+      await doc.save()
+      res.status(201).json(doc)
+    } catch (err) {
+      res.status(504).json({ 'Error': 'Operation not successful. Try again' })
+    }
+  }
+}
+exports.deleteUser = async function (req, res) {
+  try {
+    await UserModel.deleteOne({ _id: req.params.id })
+    res.status(201).json({ 'Success': 'User successfully deleted' })
+  } catch (err) {
+    res.status(504).json({ 'Error': 'Operation not successful. Try again' })
+  }
+}
+async function retrieveUser (req, res) {
   let doc = await UserModel.findOne({ '_id': req.params.id })
 
+  // If user isn't found, just print the error message here, don't propagate it back to the calling function
   if (!doc) return res.status(404).json({ 'Error': 'User with the given id not found' })
-
-  // Mongoose sends a `updateOne({ _id: doc._id }, { $set: { handle: 'new name' } })`
-  // to MongoDB.
-  if (req.body.handle) doc.handle = req.body.handle
-  try {
-    await doc.save()
-  } catch (err) {
-    console.error(err, ' Update failed')
-  }
-  res.status(201).json(doc)
-}
-exports.deleteUsers = function () {
-
-}
-exports.deleteUser = function () {
-
+  return doc
 }

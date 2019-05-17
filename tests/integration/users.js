@@ -65,7 +65,7 @@ describe(' Create/Get user User suite', function () {
     return chai.request(app)
       .get('/api/v1/users/' + firstUser._id)
       .should.eventually.have.property('body')
-      .that.is.an('array').that.has.lengthOf(1)
+      .that.is.an('object').that.has.any.keys({ '_id': firstUser._id })
   })
   it('should update a user details given their id', function () {
     return chai.request(app)
@@ -81,5 +81,11 @@ describe(' Create/Get user User suite', function () {
       .send(updatedUser)
       .should.eventually.be.a('object')
       .that.has.deep.property('body', { 'Error': 'User with the given id not found' })
+  })
+  it('should delete a user given a valid id', function () {
+    return chai.request(app)
+      .delete('/api/v1/users/' + firstUser._id)
+      .should.eventually.be.a('object')
+      .that.has.deep.property('body', { 'Success': 'User successfully deleted' })
   })
 })
