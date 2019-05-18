@@ -119,6 +119,6 @@ describe(' User model validation ', function () {
     return chai.request(app)
       .post('/api/v1/users')
       .send(chainsmokers)
-      .should.eventually.be.an('object')
+      .should.eventually.be.an('object').that.has.deep.property('body', { 'Error': 'Handle already exists' })
   })
 })
