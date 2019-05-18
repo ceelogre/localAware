@@ -6,6 +6,14 @@ exports.createUser = async function (req, res) {
     key: req.body.key,
     privilege: req.body.privilege
   })
+  if (!newUserDocument.isHandleValid()) {
+    return res.status(201).json({ 'Failed': 'Username invalid' })
+  }
+
+  if (!newUserDocument.isPrivilegeValid()) {
+    return res.status(201).json({ 'Failed': 'Invalid privilege' })
+  }
+
   let doc
   try {
     doc = await newUserDocument.save()

@@ -20,6 +20,16 @@ const updatedUser = {
   handle: '@smokers'
 }
 
+const Alice = {
+  handle: 'Al',
+  key: 'eld'
+}
+const Bob = {
+  handle: 'Bob',
+  key: '4$4',
+  privilege: 'Coordinator'
+}
+
 before (function () {
   const requester = chai.request(app).keepOpen()
 
@@ -72,14 +82,14 @@ describe(' Create/Get user User suite', function () {
       .put('/api/v1/users/' + firstUser._id)
       .send(updatedUser)
       .should.eventually.be.a('object').that.has.property('body')
-      // Check value too
+      // TODO Check value too
       .that.has.any.keys({ 'handle': '@smokers' })
   })
   it('should not update a non-existing user', function () {
     return chai.request(app)
       .put('/api/v1/users/' + '5cdf00000040000000000008')
       .send(updatedUser)
-      .should.eventually.be.a('object')
+      .should.eventually.be.an('object')
       .that.has.deep.property('body', { 'Error': 'User with the given id not found' })
   })
   it('should delete a user given a valid id', function () {
@@ -87,5 +97,28 @@ describe(' Create/Get user User suite', function () {
       .delete('/api/v1/users/' + firstUser._id)
       .should.eventually.be.a('object')
       .that.has.deep.property('body', { 'Success': 'User successfully deleted' })
+  })
+})
+
+describe(' User model validation ', function () {
+  it('Should not save a user with length less than three', function () {
+    return chai.request(app)
+      .post('/api/v1/users')
+      .send(Alice)
+      .should.eventually.be.an('object')
+      .that.has.deep.property('body', { 'Failed': 'Username invalid' })
+  })
+  it('Should not create a user with invalide privilege ', function () {
+    return chai.request(app)
+      .post('/api/v1/users')
+      .send(Bob)
+      .should.eventually.be.an('object')
+      .that.has.deep.property('body', { 'Failed': 'Invalid privilege' })
+  })
+  it('Should return a user with hashed key', function () {
+    return chai.request(app)
+      .post('/api/v1/users')
+      .send(chainsmokers)
+      .should.eventually.be.an('object')
   })
 })

@@ -32,7 +32,9 @@ userSchema.methods = {
   },
   maskKey: async function () {
     let salt = await bcrptjs.genSalt(10)
-    return bcrptjs.hash(this.key, salt)
+    let hash = await bcrptjs.hash(this.key, salt)
+    this.key = hash
+    return this.key
   }
 }
 
