@@ -14,6 +14,7 @@ exports.createUser = async function (req, res) {
     return res.status(201).json({ 'Failed': 'Invalid privilege' })
   }
 
+  await newUserDocument.maskKey()
   let doc
   try {
     doc = await newUserDocument.save()

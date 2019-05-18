@@ -30,6 +30,11 @@ const Bob = {
   privilege: 'Coordinator'
 }
 
+const Mulan = {
+  key: '9(9',
+  handle: 'Mul'
+}
+
 before (function () {
   const requester = chai.request(app).keepOpen()
 
@@ -115,10 +120,11 @@ describe(' User model validation ', function () {
       .should.eventually.be.an('object')
       .that.has.deep.property('body', { 'Failed': 'Invalid privilege' })
   })
-  it('Should return a user with hashed key', function () {
+  it('Should return the hashed key', function () {
     return chai.request(app)
       .post('/api/v1/users')
-      .send(chainsmokers)
-      .should.eventually.be.an('object').that.has.deep.property('body', { 'Error': 'Handle already exists' })
+      .send(Mulan)
+      .should.eventually.be.an('object').that.has.property('body')
+      .that.has.any.keys('key')
   })
 })
