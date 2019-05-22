@@ -113,7 +113,7 @@ describe(' User model validation ', function () {
       .should.eventually.be.an('object')
       .that.has.deep.property('body', { 'Failed': 'Username invalid' })
   })
-  it('Should not create a user with invalide privilege ', function () {
+  it('Should not create a user with invalid privilege ', function () {
     return chai.request(app)
       .post('/api/v1/users')
       .send(Bob)
