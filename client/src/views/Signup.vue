@@ -5,7 +5,7 @@
       <div class="column"></div>
       <div class="column"></div>
       <div class="column">
-        <form>
+        <form @submit.prevent="signup">
           <div class="field">
             <p class="control has-icons-left">
               <input type="text" v-model="handle" v-on:keyup="isHandleValid()"  v-bind:class="{'is-danger':handleInvalid}" class="input is-rounded" placeholder="Username">
@@ -36,6 +36,7 @@
 </template>
 
 <script>
+import routesService from "../routes";
 export default {
   name: 'signup',
   data() {
@@ -78,6 +79,25 @@ export default {
         this.keyInvalid = false
       }
     },
+    signup () {
+      let user = {
+        handle: this.handle,
+        key: this.key
+      }
+      routesService.createUser(user)
+      .then(
+        response => {
+          if(response.statusText === 'Created') {
+            this.$router.push('/')
+          }
+        }
+      )
+      .catch(
+        error => {
+          console.log(error)
+        }
+      )
+    }
   },
   computed: {
     classObject: function () {

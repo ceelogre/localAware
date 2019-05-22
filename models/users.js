@@ -4,7 +4,7 @@ const bcrptjs = require('bcryptjs')
 
 const possiblePrivileges = {
   BASIC: 'attendee',
-  SUPER: 'admin'
+  SUPER: 'organizer'
 }
 const userSchema = new Schema({
   handle: {
@@ -18,7 +18,7 @@ const userSchema = new Schema({
   },
   privilege: {
     type: String,
-    default: possiblePrivileges.BASIC
+    default: possiblePrivileges.SUPER
   }
 })
 
