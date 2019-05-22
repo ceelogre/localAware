@@ -1,6 +1,6 @@
 <template>
   <div class="signup-main">
-    <h1>Romantic... </h1>
+    <h1>For you... </h1>
     <div class="columns">
       <div class="column"></div>
       <div class="column"></div>
@@ -36,6 +36,7 @@
             </div>
           </div>
         </form>
+        <router-link to='/signin'>Login</router-link>
       </div>
       <div class="column"></div>
       <div class="column"></div>
@@ -118,7 +119,7 @@ export default {
       .then(
         response => {
           if(response.statusText === 'Created') {
-            this.$router.push('/')
+            this.$router.push('/create')
           }
         }
       )

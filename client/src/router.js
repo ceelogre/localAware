@@ -4,6 +4,7 @@ import Home from './views/Home.vue'
 import Signup from './views/Signup.vue'
 import Event from './pages/Event.vue'
 import Signin from './views/Signin.vue'
+import Dashboard from './views/Dashboard.vue'
 Vue.use(Router)
 
 export default new Router({
@@ -32,6 +33,11 @@ export default new Router({
       path: '/events',
       name: 'events',
       component: Event
+    },
+    {
+      path: '/create',
+      name: 'Add event',
+      component: Dashboard
     }
   ]
 })
