@@ -15,4 +15,7 @@ router.put('/:id', userCRUD.updateUser)
 // Delete user
 router.delete('/:id', userCRUD.deleteUser)
 
+// Auth user
+router.post('/auth', userCRUD.auth)
+
 module.exports = router

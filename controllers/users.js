@@ -56,6 +56,10 @@ exports.deleteUser = async function (req, res) {
     res.status(504).json({ 'Error': 'Operation not successful. Try again' })
   }
 }
+
+exports.auth = async function (req, res) {
+  res.status(200).json('TDD')
+}
 async function retrieveUser (req, res) {
   let doc = await UserModel.findOne({ '_id': req.params.id })
 
