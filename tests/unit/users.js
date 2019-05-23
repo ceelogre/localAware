@@ -8,7 +8,7 @@ chai.use(chatAsPromised)
 const mockUser = new UserModel({
   handle: 'Obi',
   key: 'iboi',
-  privilege: 'admin'
+  privilege: 'attendee'
 })
 describe('Users suite', function () {
   it('should accepth a user with len 3 or more', function () {

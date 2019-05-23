@@ -9,7 +9,7 @@ chai.use(chaiAsPromised)
 const mockUser = {
   handle: 'Tali',
   key: 'ilat',
-  privilege: 'admin'
+  privilege: 'organizer'
 }
 const chainsmokers = {
   handle: '@chain',
