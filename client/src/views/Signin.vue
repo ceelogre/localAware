@@ -85,12 +85,10 @@ export default {
         handle: this.handle,
         key: this.key
       }
-      routesService.createUser(user)
+      routesService.signin(user)
       .then(
         response => {
-          if(response.statusText === 'Created') {
-            this.$router.push('/')
-          }
+          console.log(response)
         }
       )
       .catch(

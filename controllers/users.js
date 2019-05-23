@@ -2,9 +2,9 @@ const UserModel = require('../models/users')
 
 exports.createUser = async function (req, res) {
   let newUserDocument = new UserModel({
-    handle: req.body.user.handle,
-    key: req.body.user.key,
-    privilege: req.body.user.privilege
+    handle: req.body.handle,
+    key: req.body.key,
+    privilege: req.body.privilege
   })
   if (!newUserDocument.isHandleValid()) {
     return res.status(201).json({ 'Failed': 'Username invalid' })

@@ -35,6 +35,11 @@ const Mulan = {
   handle: 'Mul'
 }
 
+const unRegisteredDamian = {
+  handle: 'Damian',
+  key: 'naim'
+}
+
 before (function () {
   const requester = chai.request(app).keepOpen()
 
@@ -126,5 +131,14 @@ describe(' User model validation ', function () {
       .send(Mulan)
       .should.eventually.be.an('object').that.has.property('body')
       .that.has.any.keys('key')
+  })
+})
+
+describe('User auth suite ', function () {
+  it('Should fail for an unregistered user ', function () {
+    return chai.request(app)
+      .post('/api/v1/users/auth')
+      .send(unRegisteredDamian)
+      .should.eventually.Failed
   })
 })
