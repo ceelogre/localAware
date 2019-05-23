@@ -58,12 +58,32 @@ exports.deleteUser = async function (req, res) {
 }
 
 exports.auth = async function (req, res) {
-  res.status(200).json('TDD')
+  // Find the user
+  let userDocument = await getUserByName(req, res)
+  if (userDocument instanceof UserModel) {
+    // Go on to the check the password
+    let result = await userDocument.auth(req.body.key)
+    // if true the keys match
+    if (result === true) {
+      // Create token
+      res.status(200).json({ 'token': 'In' })
+    } else {
+      res.status(200).json({ 'Error': 'Invalid username or password' })
+    }
+  }
 }
 async function retrieveUser (req, res) {
   let doc = await UserModel.findOne({ '_id': req.params.id })
 
   // If user isn't found, just print the error message here, don't propagate it back to the calling function
   if (!doc) return res.status(404).json({ 'Error': 'User with the given id not found' })
+  return doc
+}
+
+async function getUserByName (req, res) {
+  let doc = await UserModel.findOne({ 'handle': req.body.handle })
+
+  // End the request cycle in case the user doesn't exists
+  if (!doc) return res.status(404).json({ 'Error': 'User with the given username not found' })
   return doc
 }

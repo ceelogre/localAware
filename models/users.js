@@ -36,8 +36,8 @@ userSchema.methods = {
     this.key = hash
     return this.key
   },
-  auth: async function () {
-    bcrptjs.compare()
+  auth: async function (givenKey) {
+    return bcrptjs.compare(givenKey, this.key)
   }
 }
 

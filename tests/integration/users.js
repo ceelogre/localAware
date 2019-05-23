@@ -139,6 +139,13 @@ describe('User auth suite ', function () {
     return chai.request(app)
       .post('/api/v1/users/auth')
       .send(unRegisteredDamian)
-      .should.eventually.Failed
+      .should.eventually.be.an('object').that.has.deep.property('body', { 'Error': 'User with the given username not found' })
+  })
+  it('Should pass for a registered user ', function () {
+    return chai.request(app)
+      .post('/api/v1/users/auth')
+      .send(chainsmokers)
+      .should.eventually.be.an('object').that.has.property('body')
+      .that.has.any.keys('token')
   })
 })
