@@ -1,4 +1,5 @@
 const UserModel = require('../models/users')
+const jwt = require('jsonwebtoken')
 
 exports.createUser = async function (req, res) {
   let newUserDocument = new UserModel({
@@ -66,7 +67,9 @@ exports.auth = async function (req, res) {
     // if true the keys match
     if (result === true) {
       // Create token
-      res.status(200).json({ 'token': 'In' })
+      let privateKey = 'thePennyDropped'
+      let token = await jwt.sign({ data: 'kibana' }, privateKey, { expiresIn: 60 })
+      res.status(200).json({ 'token': token })
     } else {
       res.status(200).json({ 'Error': 'Invalid username or password' })
     }

@@ -135,6 +135,11 @@ describe(' User model validation ', function () {
 })
 
 describe('User auth suite ', function () {
+  before(' Populate the db with users ', function () {
+    return chai.request(app)
+      .post('/api/v1/users/')
+      .send(chainsmokers)
+  })
   it('Should fail for an unregistered user ', function () {
     return chai.request(app)
       .post('/api/v1/users/auth')
