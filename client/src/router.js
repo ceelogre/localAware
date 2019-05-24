@@ -37,7 +37,14 @@ export default new Router({
     {
       path: '/create',
       name: 'Add event',
-      component: Dashboard
+      component: Dashboard,
+      beforeEnter: function (to, from, next) {
+        if (window.localStorage.getItem('uToken')) {
+          next()
+        } else {
+          next('/signin')
+        }
+      }
     }
   ]
 })

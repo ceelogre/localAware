@@ -99,6 +99,8 @@ export default {
         response => {
           // Successfully authenticated
           if(response.data.token) {
+            window.localStorage.setItem('uToken', response.data.token)
+            window.localStorage.setItem('handle', this.handle)
             this.$router.push('/create')
           } else if (response.data.Error) {
             // Show the error

@@ -1,16 +1,24 @@
 <template>
- <div>Create event page WIP...</div>
+ <div>
+   <navHeader v-bind:handle=handle></navHeader>
+ </div>
 </template>
 
 <script>
+// @ is an alias for src
+import header from '@/components/Nav.vue'
 export default {
   name: "Home",
   props: {
-    msg: String
+    user: String,
+  },
+  components: {
+    'navHeader': header
   },
   data: function() {
     return {
-      geo: null
+      geo: null,
+      handle: 'Light'
     };
   },
   methods: {
@@ -30,6 +38,9 @@ export default {
         alert('No');
       }
     },
+    getHandle () {
+      return this.props.handle
+    }
   }
 }
 </script>

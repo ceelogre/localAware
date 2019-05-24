@@ -125,6 +125,7 @@ export default {
       .then(
         response => {
           if(response.data.handle) {
+            window.localStorage.setItem('handle', this.handle)
             this.$router.push('/create')
           } else if (response.data.Error) {
             // Show the error
