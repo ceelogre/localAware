@@ -20,7 +20,7 @@ exports.createUser = async function (req, res) {
   try {
     doc = await newUserDocument.save()
   } catch (err) {
-    if (err.name === 'MongoError' && err.code === 11000) res.status(406).json({ 'Error': 'Handle already exists' })
+    if (err.name === 'MongoError' && err.code === 11000) res.status(201).json({ 'Error': 'Handle already exists' })
   }
   res.status(201).json(doc)
 }

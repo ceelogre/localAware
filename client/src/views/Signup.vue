@@ -5,6 +5,11 @@
       <div class="column"></div>
       <div class="column"></div>
       <div class="column">
+        <div class="control">
+          <div v-for="(error, index) in errors" :key="index">
+            <p @click="dismissError()" class="help is-danger">{{ error }} </p>
+          </div>
+        </div>
         <form @submit.prevent="signup">
           <div class="field">
             <p class="control has-icons-left">
@@ -56,7 +61,8 @@ export default {
       handleInvalid: '',
       keyInvalid: '',
       keyCloneInvalid: '',
-      cannotSubmit: true
+      cannotSubmit: true,
+      errors: []
     }
   },
 
@@ -118,8 +124,17 @@ export default {
       routesService.createUser(user)
       .then(
         response => {
-          if(response.statusText === 'Created') {
+          if(response.data.handle) {
             this.$router.push('/create')
+          } else if (response.data.Error) {
+            // Show the error
+            this.errors.push(response.data.Error)
+            setTimeout( () => {
+              this.errors.pop()
+            }, 3000)
+          } else {
+            //Error could be anything :), ask them to try again
+            this.errors.push('Something went wrong, please try again.')
           }
         }
       )

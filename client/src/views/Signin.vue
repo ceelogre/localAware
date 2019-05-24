@@ -108,6 +108,7 @@ export default {
             }, 3000)
           } else {
             //Error could be anything :), ask them to try again
+            this.errors.push('Something went wrong, please try again.')
           }
         }
       )
