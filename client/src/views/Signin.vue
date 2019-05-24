@@ -5,6 +5,11 @@
       <div class="column"></div>
       <div class="column"></div>
       <div class="column">
+        <div class="control">
+          <div v-for="(error, index) in errors" :key="index">
+            <p @click="dismissError()" class="help is-danger">{{ error }} </p>
+          </div>
+        </div>
         <form @submit.prevent="signin">
           <div class="field">
             <p class="control has-icons-left">
@@ -46,7 +51,8 @@ export default {
       key: '',
       handleInvalid: '',
       keyInvalid: '',
-      cannotSubmit: true
+      cannotSubmit: true,
+      errors: []
     }
   },
   watch: {
@@ -80,6 +86,9 @@ export default {
         this.keyInvalid = false
       }
     },
+    dismissError() {
+      this.errors.pop()
+    },
     signin () {
       let user = {
         handle: this.handle,
@@ -88,7 +97,18 @@ export default {
       routesService.signin(user)
       .then(
         response => {
-          console.log(response)
+          // Successfully authenticated
+          if(response.data.token) {
+            this.$router.push('/create')
+          } else if (response.data.Error) {
+            // Show the error
+            this.errors.push(response.data.Error)
+            setTimeout( () => {
+              this.errors.pop()
+            }, 3000)
+          } else {
+            //Error could be anything :), ask them to try again
+          }
         }
       )
       .catch(

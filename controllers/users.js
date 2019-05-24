@@ -69,9 +69,9 @@ exports.auth = async function (req, res) {
       // Create token
       let privateKey = 'thePennyDropped'
       let token = await jwt.sign({ data: 'kibana' }, privateKey, { expiresIn: 60 })
-      res.status(200).json({ 'token': token })
+      res.status(201).json({ 'token': token })
     } else {
-      res.status(200).json({ 'Error': 'Invalid username or password' })
+      res.status(201).json({ 'Error': 'Invalid username or password' })
     }
   }
 }
@@ -79,7 +79,7 @@ async function retrieveUser (req, res) {
   let doc = await UserModel.findOne({ '_id': req.params.id })
 
   // If user isn't found, just print the error message here, don't propagate it back to the calling function
-  if (!doc) return res.status(404).json({ 'Error': 'User with the given id not found' })
+  if (!doc) return res.status(201).json({ 'Error': 'User with the given id not found' })
   return doc
 }
 
@@ -87,6 +87,6 @@ async function getUserByName (req, res) {
   let doc = await UserModel.findOne({ 'handle': req.body.handle })
 
   // End the request cycle in case the user doesn't exists
-  if (!doc) return res.status(404).json({ 'Error': 'User with the given username not found' })
+  if (!doc) return res.status(201).json({ 'Error': 'Invalid username or password' })
   return doc
 }

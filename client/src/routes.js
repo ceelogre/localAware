@@ -14,6 +14,6 @@ export default {
     return apiClient.post('/users', user)
   },
   signin (user) {
-    return apiClient.post('/users/auth', { user })
+    return apiClient.post('/users/auth', user)
   }
 }
