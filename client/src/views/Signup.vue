@@ -1,10 +1,9 @@
 <template>
   <div class="signup-main">
-    <h1>For you... </h1>
     <div class="columns">
       <div class="column"></div>
       <div class="column"></div>
-      <div class="column">
+      <div class="column main">
         <div class="control">
           <div v-for="(error, index) in errors" :key="index">
             <p @click="dismissError()" class="help is-danger">{{ error }} </p>
@@ -162,3 +161,11 @@ export default {
 
 }
 </script>
+<style lang="sass">
+.main
+  margin-top: 10em
+  margin-bottom: 10em
+</style>
+">
+
+</style>
