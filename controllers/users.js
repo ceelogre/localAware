@@ -67,8 +67,8 @@ exports.auth = async function (req, res) {
     // if true the keys match
     if (result === true) {
       // Create token
-      let privateKey = 'thePennyDropped'
-      let token = await jwt.sign({ data: 'kibana' }, privateKey, { expiresIn: 60 })
+      global.sharedKey = 'thePennyDropped'
+      let token = await jwt.sign({ data: 'kibana' }, global.sharedKey, { expiresIn: 60 })
       res.status(201).json({ 'token': token })
     } else {
       res.status(201).json({ 'Error': 'Invalid username or password' })

@@ -144,7 +144,7 @@ describe('User auth suite ', function () {
     return chai.request(app)
       .post('/api/v1/users/auth')
       .send(unRegisteredDamian)
-      .should.eventually.be.an('object').that.has.deep.property('body', { 'Error': 'User with the given username not found' })
+      .should.eventually.be.an('object').that.has.deep.property('body', { 'Error': 'Invalid username or password' })
   })
   it('Should pass for a registered user ', function () {
     return chai.request(app)

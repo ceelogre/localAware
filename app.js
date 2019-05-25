@@ -5,6 +5,7 @@ const logger = require('morgan')
 const mongoose = require('mongoose')
 
 const usersRouter = require('./routes/users')
+const eventsRouter = require('./routes/events')
 
 const app = express()
 
@@ -15,6 +16,7 @@ app.use(cookieParser())
 app.use(express.static(path.join(__dirname, 'public')))
 
 app.use('/api/v1/users', usersRouter)
+app.use('/api/v1/events', eventsRouter)
 
 // Set the env
 if (process.argv[2]) process.env.NODE_ENV = process.argv[2]
