@@ -4,12 +4,13 @@ const bcrptjs = require('bcryptjs')
 
 const possiblePrivileges = {
   BASIC: 'attendee',
-  SUPER: 'admin'
+  SUPER: 'organizer'
 }
 const userSchema = new Schema({
   handle: {
     type: String,
-    required: true
+    required: true,
+    unique: true
   },
   key: {
     type: String,
@@ -17,7 +18,7 @@ const userSchema = new Schema({
   },
   privilege: {
     type: String,
-    default: possiblePrivileges.BASIC
+    default: possiblePrivileges.SUPER
   }
 })
 
@@ -31,7 +32,12 @@ userSchema.methods = {
   },
   maskKey: async function () {
     let salt = await bcrptjs.genSalt(10)
-    return bcrptjs.hash(this.key, salt)
+    let hash = await bcrptjs.hash(this.key, salt)
+    this.key = hash
+    return this.key
+  },
+  auth: async function (givenKey) {
+    return bcrptjs.compare(givenKey, this.key)
   }
 }
 

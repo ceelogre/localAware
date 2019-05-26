@@ -1,16 +1,5 @@
 <template>
   <div id="app">
-    <section id="nav">
-      <router-link class="button" to="/">Home</router-link> |
-      <router-link class="button" to="/about">About</router-link>
-      <div class="columns">
-  <div class="column">1</div>
-  <div class="column">2</div>
-  <div class="column">3</div>
-  <div class="column">4</div>
-  <div class="column">5</div>
-</div>
-    </section>
     <router-view/>
   </div>
 </template>
@@ -23,7 +12,7 @@
   -webkit-font-smoothing: antialiased
   -moz-osx-font-smoothing: grayscale
   text-align: center
-  color: white
+  color: hsl(4, 3, 2)
 
 #nav 
   padding: 30px
