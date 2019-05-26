@@ -16,7 +16,42 @@ describe('GET Events suite ', function () {
 })
 
 describe('CREATE Events suite', function () {
-  it('should not create an event if not loggedIn', function () {
-    const sashaSloan = {}
+  let token
+  before('Register and authenticate a user ', async function () {
+    const superagent = chai.request(app).keepOpen()
+    try {
+      await superagent.post('/api/v1/users')
+        .send({ handle: 'Logic', key: 'cigol' })
+    } catch (err) {
+      console.error(err)
+    }
+    try {
+      let response = await superagent.post('/api/v1/users/auth')
+        .send({ handle: 'Logic', key: 'cigol' })
+      token = response.body.token
+    } catch (err) {
+      console.error(err)
+    }
+    superagent.close()
+  })
+  it('should create an event if user is loggedIn', function () {
+    return chai.request(app)
+      .post('/api/v1/events')
+      .set('token', token)
+      .send({ name: 'Signal processing', happeningOn: 'June 5, 2019', organizedBy: 'Farida', location: 'CR4' })
+      .should.eventually.have.a.deep.property('body', 'TDD')
+  })
+  it('should not create an event if token is not set ', function () {
+    return chai.request(app)
+      .post('/api/v1/events')
+      .send({ name: 'Signal processing', happeningOn: 'June 5, 2019', organizedBy: 'Farida', location: 'CR4' })
+      .should.eventually.have.a.deep.property('body', { error: 'Missing token' })
+  })
+  it('should not create an event if token is invalid', function () {
+    return chai.request(app)
+      .post('/api/v1/events')
+      .set('token', 'I.Think.Therefore')
+      .send({ name: 'Signal processing', happeningOn: 'June 5, 2019', organizedBy: 'Farida', location: 'CR4' })
+      .should.eventually.have.a.deep.property('body', { error: 'Invalid token' })
   })
 })

@@ -69,7 +69,7 @@ describe(' Create/Get user User suite', function () {
     return chai.request(app)
       .get('/api/v1/users')
       .should.eventually.have.a.property('body').that.is.an('array')
-      .that.has.lengthOf(2)
+      .that.has.lengthOf(3)
   })
   let firstUser
   before( function () {
