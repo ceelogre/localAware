@@ -39,7 +39,8 @@ describe('CREATE Events suite', function () {
       .post('/api/v1/events')
       .set('token', token)
       .send({ name: 'Signal processing', happeningOn: 'June 5, 2019', organizedBy: 'Farida', location: 'CR4' })
-      .should.eventually.have.a.deep.property('body', 'TDD')
+      .should.eventually.have.a.property('body')
+      .that.includes.all.keys('location', 'name', 'happeningOn', 'createdOn', 'attendees')
   })
   it('should not create an event if token is not set ', function () {
     return chai.request(app)
