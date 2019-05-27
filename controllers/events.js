@@ -16,7 +16,10 @@ exports.createEvent = async function (req, res) {
     let eventDoc = await eventDocument.save()
     res.status(201).json(eventDoc)
   } catch (err) {
-    console.error(err)
-    res.status(201).json({ 'error': 'Event not registered. Try again' })
+    if (err.name === 'ValidationError') {
+      res.status(200).json({ 'error': 'Missing or invalid form field' })
+    } else {
+      res.status(200).json({ 'error': 'Event not registered. Try again' })
+    }
   }
 }
