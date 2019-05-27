@@ -4,7 +4,7 @@ const Schema = mongoose.Schema
 const eventsSchema = new Schema({
   name: {
     type: String,
-    required: true
+    required: [true, 'Event name cannot be empty']
   },
   createdOn: {
     type: Date,
@@ -12,20 +12,31 @@ const eventsSchema = new Schema({
   },
   happeningOn: {
     type: Date,
-    required: true
+    required: [true, 'Event date cannot be empty'],
+    validate: {
+      validator: function () {
+        return this.happeningOn > Date.now()
+      },
+      message: props => `${props.value} date should be in the future`
+    }
   },
   organizedBy: {
     type: String,
-    required: true
+    required: [true, 'Organizer field cannot be empty']
   },
   location: {
     type: String,
-    required: true
+    required: [true, 'Location cannot be empty']
   },
   attendees: {
     type: Array
   }
 })
 
+eventsSchema.methods = {
+  isEventDateValid: function () {
+    return this.happeningOn > Date.now()
+  }
+}
 const eventsModel = mongoose.model('events', eventsSchema)
 module.exports = eventsModel

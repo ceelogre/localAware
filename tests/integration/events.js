@@ -56,3 +56,10 @@ describe('CREATE Events suite', function () {
       .should.eventually.have.a.deep.property('body', { error: 'Invalid token' })
   })
 })
+describe('GET Events suite ', function () {
+  it('should return an array with one event', function () {
+    return chai.request(app)
+      .get('/api/v1/events')
+      .should.eventually.be.an('object').that.has.property('body').that.has.any.keys('0')
+  })
+})
