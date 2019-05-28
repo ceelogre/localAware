@@ -1,5 +1,4 @@
 const chai = require('chai')
-const should = chai.should
 const chaiHttp = require('chai-http')
 const chaiAsPromised = require('chai-as-promised')
 const app = require('../../app')

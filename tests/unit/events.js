@@ -1,5 +1,3 @@
-const chai = require('chai')
-const should = chai.should()
 const EventModel = require('../../models/events')
 
 const eventObject = {
