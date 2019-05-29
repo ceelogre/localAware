@@ -125,7 +125,7 @@ export default {
         response => {
           if(response.data.handle) {
             window.localStorage.setItem('handle', this.handle)
-            this.$router.push('/create')
+            this.$router.push('/dashboard')
           } else if (response.data.Error) {
             // Show the error
             this.errors.push(response.data.Error)

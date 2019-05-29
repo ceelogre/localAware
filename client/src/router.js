@@ -2,9 +2,10 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
 import Signup from './views/Signup.vue'
-import Event from './pages/Event.vue'
+import Event from './components/Event.vue'
 import Signin from './views/Signin.vue'
 import Dashboard from './views/Dashboard.vue'
+import AddEvent from './components/AddEvent.vue'
 Vue.use(Router)
 
 export default new Router({
@@ -30,13 +31,8 @@ export default new Router({
       component: Signin
     },
     {
-      path: '/events',
-      name: 'events',
-      component: Event
-    },
-    {
-      path: '/create',
-      name: 'Add event',
+      path: '/dashboard',
+      name: 'user playground',
       component: Dashboard,
       beforeEnter: function (to, from, next) {
         if (window.localStorage.getItem('uToken')) {
@@ -44,7 +40,20 @@ export default new Router({
         } else {
           next('/signin')
         }
-      }
+      },
+      children: [
+        {
+          path: '/create',
+          name: 'Add event',
+          component: AddEvent
+
+        },
+        {
+          path: '/events',
+          name: 'events',
+          component: Event
+        }
+      ]
     }
   ]
-})
+  })
