@@ -1,5 +1,4 @@
 const chai = require('chai')
-const should = chai.should
 const chaiHttp = require('chai-http')
 const chaiAsPromised = require('chai-as-promised')
 const app = require('../../app')
@@ -39,7 +38,8 @@ describe('CREATE Events suite', function () {
       .post('/api/v1/events')
       .set('token', token)
       .send({ name: 'Signal processing', happeningOn: 'June 5, 2019', organizedBy: 'Farida', location: 'CR4' })
-      .should.eventually.have.a.deep.property('body', 'TDD')
+      .should.eventually.have.a.property('body')
+      .that.includes.all.keys('location', 'name', 'happeningOn', 'createdOn', 'attendees')
   })
   it('should not create an event if token is not set ', function () {
     return chai.request(app)
@@ -53,5 +53,12 @@ describe('CREATE Events suite', function () {
       .set('token', 'I.Think.Therefore')
       .send({ name: 'Signal processing', happeningOn: 'June 5, 2019', organizedBy: 'Farida', location: 'CR4' })
       .should.eventually.have.a.deep.property('body', { error: 'Invalid token' })
+  })
+})
+describe('GET Events suite ', function () {
+  it('should return an array with one event', function () {
+    return chai.request(app)
+      .get('/api/v1/events')
+      .should.eventually.be.an('object').that.has.property('body').that.has.any.keys('0')
   })
 })

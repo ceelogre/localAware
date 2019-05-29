@@ -37,34 +37,6 @@
           </div>
         </div>
     </nav>
-    <section class="section">
-      <div class="columns">
-        <div class="column is-4-tablet is-3-desktop is-2-widescreen">
-          <aside class="menu">
-            <p class="menu-label">Menu</p>
-            <ul class="menu-list">
-              <li>
-                <router-link to="/signup">
-                <span class="icon">
-                  <i class="fa fa-tachometer"></i>
-                </span> Register
-                </router-link>
-              </li>
-              <li>
-                <router-link to="/signin">
-                <span class="icon">
-                  <i class="fa fa-book"></i>
-                </span> Login
-                </router-link>
-              </li>
-            </ul>
-          </aside>
-        </div>
-        <main class="column">
-            <router-view/>
-        </main>
-      </div>
-    </section>
   </div>
 </template>
 

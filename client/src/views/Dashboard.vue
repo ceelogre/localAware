@@ -1,6 +1,33 @@
 <template>
  <div>
    <navHeader v-bind:handle=handle></navHeader>
+    <section class="section">
+      <div class="columns">
+        <div class="column is-4-tablet is-3-desktop is-2-widescreen">
+          <aside class="menu">
+            <p class="menu-label">Menu</p>
+            <ul class="menu-list">
+              <li>
+                <router-link to="/events">
+                <span class="icon">
+                  <i class="fa fa-tachometer"></i>
+                </span> Your events
+                </router-link>
+              </li>
+              <li>
+                <router-link to="/create">
+                <span class="icon">
+                </span> Add event
+                </router-link>
+              </li>
+            </ul>
+          </aside>
+        </div>
+        <main class="column">
+            <router-view/>
+        </main>
+      </div>
+    </section>
  </div>
 </template>
 

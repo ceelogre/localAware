@@ -15,5 +15,8 @@ export default {
   },
   signin (user) {
     return apiClient.post('/users/auth', user)
+  },
+  getEvents () {
+    return apiClient.get('/events')
   }
 }
