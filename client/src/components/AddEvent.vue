@@ -65,7 +65,6 @@ export default {
       }
     },
     anyOfTheFieldIsEmpty () {
-      debugger
       return this.eventName === '' || this.eventLocation === '' || this.eventOrganizer === ''|| this.eventDate === ''
     },
     addEvent () {
@@ -84,13 +83,17 @@ export default {
       )
       .catch(
         err => {
-          console.log(err)
+          if (err.response.request.status === 403) {
+            // Token was not sent with the request
+          }
+          console.log(err.response.request.status)
         }
       )
     }
   }
 }
 </script>
+
 
 <style>
 

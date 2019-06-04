@@ -8,11 +8,11 @@ exports.createUser = async function (req, res) {
     privilege: req.body.privilege
   })
   if (!newUserDocument.isHandleValid()) {
-    return res.status(201).json({ 'Failed': 'Username invalid' })
+    return res.status(400).json({ 'Failed': 'Username invalid' })
   }
 
   if (!newUserDocument.isPrivilegeValid()) {
-    return res.status(201).json({ 'Failed': 'Invalid privilege' })
+    return res.status(400).json({ 'Failed': 'Invalid privilege' })
   }
 
   await newUserDocument.maskKey()
@@ -20,18 +20,18 @@ exports.createUser = async function (req, res) {
   try {
     doc = await newUserDocument.save()
   } catch (err) {
-    if (err.name === 'MongoError' && err.code === 11000) res.status(201).json({ 'Error': 'Handle already exists' })
+    if (err.name === 'MongoError' && err.code === 11000) res.status(400).json({ 'Error': 'Handle already exists' })
   }
   res.status(201).json(doc)
 }
 exports.getUsers = async function (req, res) {
   let users = await UserModel.find().select('')
-  res.status(201).json(users)
+  res.status(200).json(users)
 }
 
 exports.getUser = async function (req, res) {
   let doc = await retrieveUser(req, res)
-  if (doc instanceof UserModel) res.status(201).json(doc)
+  if (doc instanceof UserModel) res.status(200).json(doc)
 }
 exports.updateUser = async function (req, res) {
   let doc = await retrieveUser(req, res)
@@ -52,7 +52,8 @@ exports.deleteUser = async function (req, res) {
   try {
     let deleteQuery = await UserModel.deleteOne({ _id: req.params.id })
     if (deleteQuery.deletedCount === 0) return res.status(201).json({ 'Failed': 'User not found' })
-    res.status(201).json({ 'Success': 'User successfully deleted' })
+    // 204 means no content
+    res.status(204).json({ 'Success': 'User successfully deleted' })
   } catch (err) {
     res.status(504).json({ 'Error': 'Operation not successful. Try again' })
   }
@@ -71,7 +72,7 @@ exports.auth = async function (req, res) {
       let token = await jwt.sign({ data: 'kibana' }, global.sharedKey, { expiresIn: 60 })
       res.status(201).json({ 'token': token })
     } else {
-      res.status(201).json({ 'Error': 'Invalid username or password' })
+      res.status(400).json({ 'Error': 'Invalid username or password' })
     }
   }
 }
@@ -79,7 +80,7 @@ async function retrieveUser (req, res) {
   let doc = await UserModel.findOne({ '_id': req.params.id })
 
   // If user isn't found, just print the error message here, don't propagate it back to the calling function
-  if (!doc) return res.status(201).json({ 'Error': 'User with the given id not found' })
+  if (!doc) return res.status(404).json({ 'Error': 'User with the given id not found' })
   return doc
 }
 
@@ -87,6 +88,6 @@ async function getUserByName (req, res) {
   let doc = await UserModel.findOne({ 'handle': req.body.handle })
 
   // End the request cycle in case the user doesn't exists
-  if (!doc) return res.status(201).json({ 'Error': 'Invalid username or password' })
+  if (!doc) return res.status(400).json({ 'Error': 'Invalid username or password' })
   return doc
 }
