@@ -101,12 +101,6 @@ export default {
             window.localStorage.setItem('uToken', response.data.token)
             window.localStorage.setItem('handle', this.handle)
             this.$router.push('/dashboard')
-          } else if (response.data.Error) {
-            // Show the error
-            this.errors.push(response.data.Error)
-            setTimeout( () => {
-              this.errors.pop()
-            }, 3000)
           } else {
             //Error could be anything :), ask them to try again
             this.errors.push('Something went wrong, please try again.')
@@ -115,7 +109,15 @@ export default {
       )
       .catch(
         error => {
+          if (error.response.data.Error) {
+            // Show the error
+            this.errors.push(error.response.data.Error)
+            setTimeout( () => {
+              this.errors.pop()
+            }, 3000)
+          } else {
           console.log(error)
+          }
         }
       )
     }

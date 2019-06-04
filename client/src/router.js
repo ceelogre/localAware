@@ -54,6 +54,10 @@ export default new Router({
           component: Event
         }
       ]
+    },
+    {
+      path: '/re-signin',
+      redirect: '/signin'
     }
   ]
 })
