@@ -18,5 +18,8 @@ export default {
   },
   getEvents () {
     return apiClient.get('/events')
+  },
+  createEvent (eventDetails) {
+    return apiClient.post('/events', eventDetails)
   }
 }

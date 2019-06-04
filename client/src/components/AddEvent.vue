@@ -28,7 +28,7 @@
       </div>
       <div class="field">
         <p class="control has-icons-left">
-          <input type="date" v-model="eventDate" class="input is-rounded" placeholder="Event date" v-on:keyup = "canSubmit()">
+          <input type="datetime-local" v-model="eventDate" class="input is-rounded" placeholder="Event date" v-on:change = "canSubmit()">
           <span class="icon is-small is-left">
             <i class="fas fa-key"></i>
           </span>
@@ -44,6 +44,7 @@
 </template>
 
 <script>
+import apiService from '../routes'
 export default {
   data() {
     return {
@@ -64,7 +65,28 @@ export default {
       }
     },
     anyOfTheFieldIsEmpty () {
+      debugger
       return this.eventName === '' || this.eventLocation === '' || this.eventOrganizer === ''|| this.eventDate === ''
+    },
+    addEvent () {
+      // Pass
+      let eventDetails = {
+        name: this.eventName,
+        location: this.eventLocation,
+        happeningOn: this.eventDate,
+        organizedBy: this.eventOrganizer
+      }
+      apiService.createEvent(eventDetails)
+      .then(
+        response => {
+          console.log(response.data)
+        }
+      )
+      .catch(
+        err => {
+          console.log(err)
+        }
+      )
     }
   }
 }
