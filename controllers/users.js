@@ -63,13 +63,18 @@ exports.auth = async function (req, res) {
   // Find the user
   let userDocument = await getUserByName(req, res)
   if (userDocument instanceof UserModel) {
-    // Go on to the check the password
+    // Go on, check the password
     let result = await userDocument.auth(req.body.key)
     // if true the keys match
     if (result === true) {
       // Create token
       global.sharedKey = 'thePennyDropped'
       let token = await jwt.sign({ data: 'kibana' }, global.sharedKey, { expiresIn: 60 })
+      let loggedInUser = {
+        token,
+        handle: req.body.handle
+      }
+      global.loggedInUsers.push(loggedInUser)
       res.status(201).json({ 'token': token })
     } else {
       res.status(400).json({ 'Error': 'Invalid username or password' })

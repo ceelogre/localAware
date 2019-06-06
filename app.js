@@ -18,6 +18,7 @@ app.use(express.static(path.join(__dirname, 'public')))
 app.use('/api/v1/users', usersRouter)
 app.use('/api/v1/events', eventsRouter)
 
+global.loggedInUsers = []
 // Set the env
 if (process.argv[2]) process.env.NODE_ENV = process.argv[2]
 
