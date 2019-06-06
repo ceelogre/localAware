@@ -4,6 +4,7 @@ const eventsCRUD = require('../controllers/events.js')
 const jwt = require('jsonwebtoken')
 
 router.get('/', eventsCRUD.getEvents)
+router.get('/:id', eventsCRUD.getUserEvents)
 
 router.post('/', validateUser, eventsCRUD.createEvent)
 
