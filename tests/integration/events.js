@@ -56,7 +56,19 @@ describe('CREATE Events suite', function () {
       .should.eventually.have.a.deep.property('body', { error: 'Invalid token' })
   })
 })
-describe('GET Events suite ', function () {
+describe('GET Events suite ', async function () {
+  before(' Register an event ', async function () {
+    const superagent = chai.request(app).keepOpen()
+    try {
+      let response = await superagent.post('/api/v1/users')
+        .set('token', token)
+        .send({ name: 'Signal processing', happeningOn: 'June 9, 2019', organizedBy: 'Farida', location: 'CR4' })
+      userId = response.body.creator
+    } catch (err) {
+      console.error(err)
+    }
+    superagent.close()
+  })
   it('should return an array with one event', function () {
     return chai.request(app)
       .get('/api/v1/events')
@@ -64,18 +76,7 @@ describe('GET Events suite ', function () {
   })
   it('should return events created by a specific user given a valid user id', function () {
     // Create an event and retrieve it
-    before(' Register an event ', async function () {
-      const superagent = chai.request(app).keepOpen()
-      try {
-        let response = await superagent.post('/api/v1/users')
-          .set('token', token)
-          .send({ name: 'Signal processing', happeningOn: 'June 9, 2019', organizedBy: 'Farida', location: 'CR4' })
-        userId = response.body.creator
-      } catch (err) {
-        console.error(err)
-      }
-      superagent.close()
-    })
+    
     return chai.request(app)
       .get('/api/v1/events/' + userId)
       .should.eventually.be.an('object').that.has.property('body').that.has.any.keys('0')
