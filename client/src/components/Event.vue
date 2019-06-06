@@ -3,6 +3,7 @@
 </template>
 
 <script>
+import apiServices from '../routes.js'
 export default {
   data () {
     return {
@@ -10,7 +11,18 @@ export default {
     }
   },
   created: function () {
-    console.log(this.$store.getters.getEvent)
+    let user = this.$store.getters.getEvent
+    apiServices.getUserEvents(user.creator)
+    .then(
+      response => {
+        console.log(response.data)
+      }
+    )
+    .catch(
+      err => {
+        console.log(err)
+      }
+    )
   }
 }
 </script>
