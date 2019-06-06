@@ -79,6 +79,7 @@ export default {
       apiService.createEvent(eventDetails)
       .then(
         response => {
+          this.$store.commit('addEvent', response.data)
           console.log(response.data)
         }
       )

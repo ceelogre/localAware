@@ -22,5 +22,8 @@ export default {
   createEvent (eventDetails) {
     apiClient.defaults.headers.common['token'] = window.localStorage.getItem('uToken')
     return apiClient.post('/events', eventDetails)
+  },
+  getUserEvents () {
+    return apiClient.get('/events/')
   }
 }

@@ -69,7 +69,7 @@ exports.auth = async function (req, res) {
     if (result === true) {
       // Create token
       global.sharedKey = 'thePennyDropped'
-      let token = await jwt.sign({ data: 'kibana' }, global.sharedKey, { expiresIn: 60 })
+      let token = await jwt.sign({ data: 'kibana' }, global.sharedKey, { expiresIn: 160 })
       let loggedInUser = {
         token,
         handle: req.body.handle
