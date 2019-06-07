@@ -11,8 +11,8 @@ export default {
     }
   },
   created: function () {
-    let user = this.$store.getters.getEvent
-    apiServices.getUserEvents(user.creator)
+    let user = this.$store.getters.getUser
+    apiServices.getUserEvents(user._id)
     .then(
       response => {
         console.log(response.data)

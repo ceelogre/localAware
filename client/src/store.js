@@ -20,6 +20,9 @@ export default new Vuex.Store({
   getters: {
     getEvent (state) {
       return state.events.pop()
+    },
+    getUser (state) {
+      return state.loggedInUser
     }
   },
   actions: {

@@ -88,7 +88,8 @@ exports.getEvents = async function (req, res) {
   eventsQuery.lookup({
     from: 'events',
     localField: '_id',
-    foreignField: 'creator'
+    foreignField: 'creator',
+    as: 'userEvents'
   })
   let results = await eventsQuery.exec()
   res.status(200).json(results)
