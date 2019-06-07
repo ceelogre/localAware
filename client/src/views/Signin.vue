@@ -100,6 +100,7 @@ export default {
           if(response.data.token) {
             window.localStorage.setItem('uToken', response.data.token)
             window.localStorage.setItem('handle', this.handle)
+            this.$store.commit('saveUser', response.data.userObject)
             this.$router.push('/dashboard')
           } else {
             //Error could be anything :), ask them to try again

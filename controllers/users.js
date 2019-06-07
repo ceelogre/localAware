@@ -76,7 +76,7 @@ exports.auth = async function (req, res) {
         handle: req.body.handle
       }
       global.loggedInUsers.push(loggedInUser)
-      res.status(201).json({ 'token': token })
+      res.status(201).json({ 'token': token, 'userObject': userDocument })
     } else {
       res.status(400).json({ 'Error': 'Invalid username or password' })
     }
