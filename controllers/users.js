@@ -1,4 +1,5 @@
 const UserModel = require('../models/users')
+const EventsModel = require('../models/events')
 const jwt = require('jsonwebtoken')
 
 exports.createUser = async function (req, res) {
@@ -80,6 +81,17 @@ exports.auth = async function (req, res) {
       res.status(400).json({ 'Error': 'Invalid username or password' })
     }
   }
+}
+
+exports.getEvents = async function (req, res) {
+  let eventsQuery = EventsModel.aggregate()
+  eventsQuery.lookup({
+    from: 'events',
+    localField: '_id',
+    foreignField: 'creator'
+  })
+  let results = await eventsQuery.exec()
+  res.status(200).json(results)
 }
 async function retrieveUser (req, res) {
   let doc = await UserModel.findOne({ '_id': req.params.id })

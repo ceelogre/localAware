@@ -31,6 +31,6 @@ exports.createEvent = async function (req, res) {
   }
 }
 exports.getUserEvents = async function (req, res) {
-  let userEvents = await EventsModel.find({ creator: req.params.id })
+  let userEvents = await EventsModel.find({ _id: req.params.id })
   res.status(200).json(userEvents)
 }

@@ -18,4 +18,7 @@ router.delete('/:id', userCRUD.deleteUser)
 // Auth user
 router.post('/auth', userCRUD.auth)
 
+// Get user events
+router.get('/:id' + '/events', userCRUD.getEvents)
+
 module.exports = router

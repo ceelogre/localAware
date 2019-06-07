@@ -24,6 +24,6 @@ export default {
     return apiClient.post('/events', eventDetails)
   },
   getUserEvents (userId) {
-    return apiClient.get('/events/' + userId)
+    return apiClient.get('/users/' + userId + '/events')
   }
 }
