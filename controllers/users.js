@@ -91,6 +91,7 @@ exports.getEvents = async function (req, res) {
     foreignField: 'creator',
     as: 'userEvents'
   })
+  eventsQuery.match({ creator: req.params.id })
   let results = await eventsQuery.exec()
   res.status(200).json(results)
 }
