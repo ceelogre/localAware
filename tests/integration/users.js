@@ -106,7 +106,7 @@ describe(' Create/Get user User suite', function () {
     return chai.request(app)
       .delete('/api/v1/users/' + firstUser._id)
       .should.eventually.be.a('object')
-      .that.has.deep.property('body', { 'Success': 'User successfully deleted' })
+      .that.has.deep.property('body').that.is.empty
   })
 })
 

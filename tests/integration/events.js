@@ -14,13 +14,14 @@ describe('GET Events suite ', function () {
   })
 })
 
+let userId, token
 describe('CREATE Events suite', function () {
-  let token
   before('Register and authenticate a user ', async function () {
     const superagent = chai.request(app).keepOpen()
     try {
-      await superagent.post('/api/v1/users')
+      let response = await superagent.post('/api/v1/users')
         .send({ handle: 'Logic', key: 'cigol' })
+      userId = response.body._id
     } catch (err) {
       console.error(err)
     }
@@ -37,7 +38,7 @@ describe('CREATE Events suite', function () {
     return chai.request(app)
       .post('/api/v1/events')
       .set('token', token)
-      .send({ name: 'Signal processing', happeningOn: 'June 5, 2019', organizedBy: 'Farida', location: 'CR4' })
+      .send({ name: 'Signal processing', happeningOn: 'June 19, 2019', organizedBy: 'Farida', location: 'CR4' })
       .should.eventually.have.a.property('body')
       .that.includes.all.keys('location', 'name', 'happeningOn', 'createdOn', 'attendees')
   })
@@ -55,10 +56,29 @@ describe('CREATE Events suite', function () {
       .should.eventually.have.a.deep.property('body', { error: 'Invalid token' })
   })
 })
-describe('GET Events suite ', function () {
+describe('GET Events suite ', async function () {
+  
   it('should return an array with one event', function () {
     return chai.request(app)
       .get('/api/v1/events')
+      .should.eventually.be.an('object').that.has.property('body').that.has.any.keys('0')
+  })
+  it('should return events created by a specific user given a valid user id', function () {
+    // Create an event and retrieve it
+    before(' Register an event ', async function () {
+      const superagent = chai.request(app).keepOpen()
+      try {
+        let response = await superagent.post('/api/v1/users')
+          .set('token', token)
+          .send({ name: 'Signal processing', happeningOn: 'June 9, 2019', organizedBy: 'Farida', location: 'CR4' })
+        userId = response.body.creator
+      } catch (err) {
+        console.error(err)
+      }
+      superagent.close()
+    })
+    return chai.request(app)
+      .get('/api/v1/users/' + userId + '/events')
       .should.eventually.be.an('object').that.has.property('body').that.has.any.keys('0')
   })
 })

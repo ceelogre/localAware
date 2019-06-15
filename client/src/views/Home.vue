@@ -51,5 +51,24 @@ export default {
 </script>
 
 <style>
+@media screen and(max-width: 799px){
+ #app {
+   flex-direction: colum;
+   justify-content: center;
+   align-items: center;
+  }
+}
+@media screen and(min-width: 800px) {
+  #body {
+    margin: 0 auto;
+    max-width: 50em;
+  }
+  #app {
+    align-items: center;
+    justify-content: space-around;
+    justify-content: space-evenly;
+    padding: 3rem;
+  }
+}
 
 </style>

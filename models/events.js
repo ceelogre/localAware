@@ -24,6 +24,7 @@ const eventsSchema = new Schema({
     type: String,
     required: [true, 'Organizer field cannot be empty']
   },
+  creator: String,
   location: {
     type: String,
     required: [true, 'Location cannot be empty']

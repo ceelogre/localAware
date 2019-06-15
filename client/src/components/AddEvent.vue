@@ -28,7 +28,7 @@
       </div>
       <div class="field">
         <p class="control has-icons-left">
-          <input type="date" v-model="eventDate" class="input is-rounded" placeholder="Event date" v-on:keyup = "canSubmit()">
+          <input type="datetime-local" v-model="eventDate" class="input is-rounded" placeholder="Event date" v-on:change = "canSubmit()">
           <span class="icon is-small is-left">
             <i class="fas fa-key"></i>
           </span>
@@ -44,6 +44,7 @@
 </template>
 
 <script>
+import apiService from '../routes'
 export default {
   data() {
     return {
@@ -51,7 +52,8 @@ export default {
       eventLocation: '',
       eventOrganizer: '',
       eventDate: '',
-      cannotSubmit: true
+      cannotSubmit: true,
+      errors: []
     }
   },
   methods: {
@@ -65,10 +67,40 @@ export default {
     },
     anyOfTheFieldIsEmpty () {
       return this.eventName === '' || this.eventLocation === '' || this.eventOrganizer === ''|| this.eventDate === ''
+    },
+    addEvent () {
+      // Pass
+      let eventDetails = {
+        name: this.eventName,
+        location: this.eventLocation,
+        happeningOn: this.eventDate,
+        organizedBy: this.eventOrganizer
+      }
+      apiService.createEvent(eventDetails)
+      .then(
+        response => {
+          this.$store.commit('addEvent', response.data)
+          console.log(response.data)
+        }
+      )
+      .catch(
+        err => {
+          if (err.response.request.status === 403) {
+            // Token was not sent with the request
+            this.errors.push(err.response.data)
+          } else if (err.response.request.status === 401) {
+            // Token was sent but was not valid
+            debugger
+            this.$router.replace('/re-signin')
+          }
+          console.log(err.response.request.status)
+        }
+      )
     }
   }
 }
 </script>
+
 
 <style>
 
