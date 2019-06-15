@@ -38,7 +38,7 @@ describe('CREATE Events suite', function () {
     return chai.request(app)
       .post('/api/v1/events')
       .set('token', token)
-      .send({ name: 'Signal processing', happeningOn: 'June 9, 2019', organizedBy: 'Farida', location: 'CR4' })
+      .send({ name: 'Signal processing', happeningOn: 'June 19, 2019', organizedBy: 'Farida', location: 'CR4' })
       .should.eventually.have.a.property('body')
       .that.includes.all.keys('location', 'name', 'happeningOn', 'createdOn', 'attendees')
   })
