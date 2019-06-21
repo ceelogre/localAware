@@ -2,7 +2,7 @@
   <div>
     <nav class="navbar has-shadow" >
         <div class="navbar-brand">
-          <a class="navbar-item" href="#">
+          <a class="navbar-item" href="/">
             <img src="../assets/chat.png" alt="Octopact">
           </a>
           <div class="navbar-burger burger">

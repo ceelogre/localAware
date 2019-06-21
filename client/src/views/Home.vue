@@ -1,19 +1,13 @@
 <template>
   <div>
-    <nav class="navbar">
-      <div class="navbar-end">
-        <div class="navbar-link">
         <router-link to='/signin'>Register an event</router-link>
-        </div>
-      </div>
-    </nav>
-    <section class="section">
-      <div class="container">
-        <h1 class="title">Dista</h1>
-        <p class="subtitle">Join <strong>only</strong> if you're here</p>
+    <section> 
+      <div>
+        <h1>Dista</h1>
+        <h2>Join <strong>only</strong> if you're here</h2>
       </div>
       <p v-if="events.length > 0"></p>
-      <p v-else class="paragraph">There are currently no events listed</p>
+      <p v-else>There are currently no events listed</p>
       <p v-if="errors.length > 0">Somethig went wrong, please try again</p>
     </section>
   </div>
@@ -68,6 +62,9 @@ export default {
     justify-content: space-around;
     justify-content: space-evenly;
     padding: 3rem;
+  }
+  .navbox {
+
   }
 }
 

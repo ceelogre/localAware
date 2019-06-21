@@ -90,7 +90,6 @@ export default {
             this.errors.push(err.response.data)
           } else if (err.response.request.status === 401) {
             // Token was sent but was not valid
-            debugger
             this.$router.replace('/re-signin')
           }
           console.log(err.response.request.status)

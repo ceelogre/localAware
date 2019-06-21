@@ -31,6 +31,10 @@ const eventsSchema = new Schema({
   },
   attendees: {
     type: Array
+  },
+  isPublished: {
+    type: Boolean,
+    default: false
   }
 })
 
