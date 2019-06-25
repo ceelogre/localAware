@@ -6,6 +6,7 @@ const jwt = require('jsonwebtoken')
 router.get('/', eventsCRUD.getEvents)
 router.get('/:id', eventsCRUD.getUserEvents)
 
+router.put('/:id', validateUser, eventsCRUD.publishEvent)
 router.post('/', validateUser, eventsCRUD.createEvent)
 
 function validateUser (req, res, next) {

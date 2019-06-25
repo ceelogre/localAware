@@ -34,3 +34,7 @@ exports.getUserEvents = async function (req, res) {
   let userEvents = await EventsModel.find({ _id: req.params.id })
   res.status(200).json(userEvents)
 }
+
+exports.publishEvent = async function (req, res) {
+  res.send('TDD')
+}
