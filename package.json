@@ -25,6 +25,7 @@
     "nyc": "^15.1.0"
   },
   "mocha": {
+    "env": "test",
     "reporter": "spec",
     "full-trace": "true",
     "spec": "tests",
