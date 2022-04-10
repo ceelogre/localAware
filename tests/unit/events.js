@@ -2,7 +2,7 @@ const EventModel = require('../../models/events')
 
 const eventObject = {
   name: 'Signal processing',
-  happeningOn: 'July 19, 2021',
+  happeningOn: 'July 19, 2022',
   organizedBy: 'Farida',
   location: 'CR4'
 }

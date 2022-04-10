@@ -27,7 +27,7 @@ if (process.env.NODE_ENV === 'test' || process.env.NODE_ENV === 'tests') {
   const spinTestDb = require('./utils/testDb')
   spinTestDb().then(
     db => {
-      const options = { useNewUrlParser: true, useCreateIndex: true }
+      const options = { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true }
       mongoose.connect(db.location, options, function (error) {
         if (error) console.log('Error starting db ', error)
       })
@@ -39,7 +39,7 @@ if (process.env.NODE_ENV === 'test' || process.env.NODE_ENV === 'tests') {
     if (err) console.log('Error connecting to production db.', err)
   })
 } else {
-  mongoose.connect('mongodb://localhost:27017/dista', { useNewUrlParser: true }, function (error) {
+  mongoose.connect('mongodb://localhost:27017/dista', { useNewUrlParser: true, useUnifiedTopology: true}, function (error) {
     if (error) console.log('Error starting db ', error)
   })
 }
