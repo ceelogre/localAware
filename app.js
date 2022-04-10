@@ -1,4 +1,6 @@
 const express = require('express')
+require('dotenv').config()
+
 const path = require('path')
 const cookieParser = require('cookie-parser')
 const logger = require('morgan')
@@ -22,24 +24,25 @@ global.loggedInUsers = []
 // Set the env
 if (process.argv[2]) process.env.NODE_ENV = process.argv[2]
 
+const options = { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true }
 // Create an in memory db
 if (process.env.NODE_ENV === 'test' || process.env.NODE_ENV === 'tests') {
   const spinTestDb = require('./utils/testDb')
   spinTestDb().then(
     db => {
-      const options = { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true }
       mongoose.connect(db.location, options, function (error) {
         if (error) console.log('Error starting db ', error)
       })
     })
 } else if (process.env.NODE_ENV === 'production') {
   app.get(/.*/, (req, res) => res.sendFile(path.join(__dirname, '/public/index.html')))
-  mongoose.connect('mongodb+srv://dista:rewqilike3@dista-wvmln.mongodb.net/test?retryWrites=true', { useNewUrlParser: true }, function (err) {
+  mongoose.connect('mongodb+srv://dista:rewqilike3@dista-wvmln.mongodb.net/test?retryWrites=true', options, function (err) {
     // TODO handle this error in production
     if (err) console.log('Error connecting to production db.', err)
   })
 } else {
-  mongoose.connect('mongodb://localhost:27017/dista', { useNewUrlParser: true, useUnifiedTopology: true}, function (error) {
+  NODE_ENV='development'
+  mongoose.connect('mongodb://localhost:27017/dista', options, function (error) {
     if (error) console.log('Error starting db ', error)
   })
 }
